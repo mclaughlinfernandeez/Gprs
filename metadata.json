@@ -1,0 +1,5 @@
+{
+  "name": "GPRS PQC Risk Scoring",
+  "description": "A web application for managing and scoring claims using the Genetic–Phenotypic Risk Scoring (GPRS) method with integrated Post-Quantum Cryptographic (PQC) security, based on a patented system.",
+  "requestFramePermissions": []
+}

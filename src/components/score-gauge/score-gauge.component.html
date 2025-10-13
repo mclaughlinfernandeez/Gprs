@@ -1,0 +1,32 @@
+<div class="relative w-52 h-52">
+  <svg class="w-full h-full" viewBox="0 0 200 200">
+    <!-- Background circle -->
+    <circle
+      class="text-gray-700"
+      stroke-width="15"
+      stroke="currentColor"
+      fill="transparent"
+      r="85"
+      cx="100"
+      cy="100"
+    />
+    <!-- Progress circle -->
+    <circle
+      [class]="gaugeData().colorClass"
+      stroke-width="15"
+      stroke-linecap="round"
+      [attr.stroke-dasharray]="gaugeData().circumference"
+      [attr.stroke-dashoffset]="gaugeData().offset"
+      stroke="currentColor"
+      fill="transparent"
+      r="85"
+      cx="100"
+      cy="100"
+      style="transform: rotate(-90deg); transform-origin: 50% 50%; transition: stroke-dashoffset 0.5s ease-in-out;"
+    />
+  </svg>
+  <div class="absolute inset-0 flex flex-col items-center justify-center">
+    <span class="text-4xl font-bold tracking-tight text-gray-100">{{ score().toFixed(1) }}</span>
+    <span class="text-sm font-semibold uppercase tracking-wider" [class]="gaugeData().colorClass">{{ tier() }}</span>
+  </div>
+</div>

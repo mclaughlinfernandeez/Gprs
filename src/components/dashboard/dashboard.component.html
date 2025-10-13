@@ -1,0 +1,54 @@
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+  
+  <!-- Left Column: Input and Results -->
+  <div class="lg:col-span-1 flex flex-col gap-8">
+    <app-claim-form (claimSubmit)="handleNewClaim($event)" [isProcessing]="isScoring()"></app-claim-form>
+
+    <!-- Results/Processing Panel -->
+    <div class="bg-gray-800 rounded-lg shadow-2xl p-6 border border-gray-700 min-h-[300px] flex flex-col justify-center items-center">
+      @if (isScoring()) {
+        <div class="flex flex-col items-center text-center">
+          <svg class="animate-spin h-12 w-12 text-cyan-400 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          <h3 class="text-lg font-semibold text-gray-200">Executing Secure Protocol...</h3>
+          <p class="text-sm text-cyan-300 mt-2 min-h-[40px]">{{ scoringStatus() }}</p>
+        </div>
+      } @else if (selectedClaim(); as claim) {
+        <div class="w-full flex flex-col items-center">
+            <h3 class="text-xl font-bold text-gray-100 mb-1">Claim #{{ claim.claimantId }}</h3>
+            <p class="text-sm text-gray-400 mb-4">GPRS Result</p>
+            <app-score-gauge [score]="claim.gprs" [tier]="claim.riskTier"></app-score-gauge>
+            <div class="mt-6 w-full text-sm space-y-2 text-gray-300">
+                <div class="flex justify-between border-b border-gray-700/50 py-1">
+                    <span>Polygenic Score (PRS):</span>
+                    <span class="font-mono">{{ claim.prs }}</span>
+                </div>
+                <div class="flex justify-between border-b border-gray-700/50 py-1">
+                    <span>Phenotypic Score (PHS):</span>
+                    <span class="font-mono">{{ claim.phs }}</span>
+                </div>
+                <div class="flex justify-between py-1 font-bold text-cyan-300">
+                    <span>Combined Score (GPRS):</span>
+                    <span class="font-mono">{{ claim.gprs }}</span>
+                </div>
+            </div>
+        </div>
+      } @else {
+        <div class="text-center text-gray-500">
+          <svg class="mx-auto h-12 w-12" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m9 12 2.25 2.25a.75.75 0 0 0 1.06 0L15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+          </svg>
+          <h3 class="mt-2 text-lg font-medium text-gray-400">Awaiting Claim Submission</h3>
+          <p class="mt-1 text-sm">Submit a new claim to begin the risk scoring process.</p>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Right Column: Claim History -->
+  <div class="lg:col-span-2">
+    <app-claim-list [claims]="sortedClaims()" (claimSelected)="selectClaim($event)"></app-claim-list>
+  </div>
+</div>
