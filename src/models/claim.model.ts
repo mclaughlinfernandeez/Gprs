@@ -3,7 +3,7 @@ export type RiskTier = 'Low' | 'Moderate' | 'High' | 'Critical';
 export interface Claim {
   id: string;
   claimantId: string;
-  geneticMarkers: number;
+  geneticMarkers: string[];
   phenotypicScoreInput: number;
   submissionDate: Date;
   prs: number; // Polygenic Risk Score
@@ -15,6 +15,6 @@ export interface Claim {
 
 export interface NewClaimData {
   claimantId: string;
-  geneticMarkers: number;
+  geneticMarkers: string[];
   phenotypicScoreInput: number;
 }

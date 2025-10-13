@@ -11,6 +11,7 @@
           <tr>
             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Claimant ID</th>
             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Submitted</th>
+            <th scope="col" class="px-4 py-3 text-center text-xs font-medium text-gray-300 uppercase tracking-wider">Markers</th>
             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">GPRS</th>
             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Risk Tier</th>
           </tr>
@@ -20,6 +21,7 @@
             <tr class="hover:bg-gray-700/50 cursor-pointer transition-colors" (click)="selectClaim(claim)">
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-200">{{ claim.claimantId }}</td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-400">{{ claim.submissionDate | date:'short' }}</td>
+              <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-400 text-center font-mono">{{ claim.geneticMarkers.length }}</td>
               <td class="px-6 py-4 whitespace-nowrap text-sm text-cyan-300 font-mono">{{ claim.gprs.toFixed(2) }}</td>
               <td class="px-6 py-4 whitespace-nowrap text-sm">
                 <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full border" [class]="tierColorClass()(claim.riskTier)">

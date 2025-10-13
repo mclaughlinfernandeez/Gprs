@@ -1,13 +1,15 @@
-import { Injectable, signal } from '@angular/core';
-import { Observable, of, from, concat, timer } from 'rxjs';
-import { map, delay, concatMap, tap } from 'rxjs/operators';
+import { Injectable, signal, inject } from '@angular/core';
+import { Observable, of, from } from 'rxjs';
+// FIX: Import the 'map' operator from 'rxjs/operators'.
+import { delay, concatMap, tap, toArray, map } from 'rxjs/operators';
 import { Claim, NewClaimData, RiskTier } from '../models/claim.model';
+import { GeneticMarkersService } from './genetic-markers.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ScoringService {
-
+  private geneticMarkersService = inject(GeneticMarkersService);
   public readonly currentStatus = signal<string>('');
 
   scoreClaim(newClaim: NewClaimData): Observable<Claim> {
@@ -58,23 +60,32 @@ export class ScoringService {
 
     return from(processingSteps).pipe(
       concatMap(step => 
-        of(step.status).pipe(
-          tap(status => this.currentStatus.set(status)),
+        of(step).pipe(
+          tap(s => this.currentStatus.set(s.status)),
           delay(step.duration)
         )
       ),
-      concatMap((status, index) => {
-        if(index === processingSteps.length - 1) {
-          return of(fullClaim);
-        }
-        return new Observable<never>();
-      })
+      toArray(),
+      map(() => fullClaim)
     );
   }
 
-  private calculatePRS(geneticMarkers: number): number {
-    // Simplified simulation: score increases with markers, with some noise
-    return Math.min(100, Math.max(0, (geneticMarkers / 1000) * 50 + Math.random() * 20));
+  private calculatePRS(selectedRsIds: string[]): number {
+    const markerMap = this.geneticMarkersService.getMarkerMap();
+    const maxPossibleWeight = this.geneticMarkersService.getMarkers().reduce((sum, marker) => sum + marker.weight, 0);
+
+    const rawScore = selectedRsIds.reduce((acc, rsId) => {
+      const marker = markerMap.get(rsId);
+      return acc + (marker?.weight || 0);
+    }, 0);
+
+    // Normalize score to a 0-100 scale based on max possible weight
+    const normalizedScore = maxPossibleWeight > 0 ? (rawScore / maxPossibleWeight) * 100 : 0;
+    
+    // Add some random variation for simulation purposes
+    const finalScore = normalizedScore + (Math.random() - 0.5) * 10;
+    
+    return Math.min(100, Math.max(0, finalScore));
   }
   
   private calculatePHS(phenotypicScore: number): number {

@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, computed, EventEmitter, input, Output } from '@angular/core';
+// FIX: Use the 'output' function instead of the '@Output' decorator and 'EventEmitter'.
+import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Claim, RiskTier } from '../../models/claim.model';
 
@@ -10,7 +11,8 @@ import { Claim, RiskTier } from '../../models/claim.model';
 })
 export class ClaimListComponent {
   claims = input.required<Claim[]>();
-  @Output() claimSelected = new EventEmitter<Claim>();
+  // FIX: Use the 'output' function for component outputs, which is a better practice in modern Angular.
+  claimSelected = output<Claim>();
 
   tierColorClass = computed(() => {
     return (tier: RiskTier) => {

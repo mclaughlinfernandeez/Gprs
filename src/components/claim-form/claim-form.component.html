@@ -10,11 +10,18 @@
     </div>
     
     <div>
-      <label for="geneticMarkers" class="block text-sm font-medium text-gray-300">Genetic Markers (n)</label>
-      <input type="number" id="geneticMarkers" formControlName="geneticMarkers" class="mt-1 block w-full bg-gray-900 border-gray-600 rounded-md shadow-sm focus:ring-cyan-500 focus:border-cyan-500 sm:text-sm text-gray-200 px-3 py-2">
-      @if (claimForm.get('geneticMarkers')?.invalid && claimForm.get('geneticMarkers')?.touched) {
-        <p class="mt-1 text-xs text-red-400">Must be between 100 and 5000.</p>
-      }
+      <label class="block text-sm font-medium text-gray-300">Genetic Profile</label>
+      <div class="mt-2 space-y-2 max-h-48 overflow-y-auto bg-gray-900/50 p-3 rounded-md border border-gray-600" formArrayName="geneticMarkers">
+        @for (marker of availableMarkers; track marker.rsId; let i = $index) {
+          <label class="flex items-center space-x-3 cursor-pointer text-sm hover:bg-gray-700/50 rounded px-2 py-1">
+            <input type="checkbox" [formControlName]="i" class="h-4 w-4 rounded border-gray-500 bg-gray-700 text-cyan-600 focus:ring-cyan-500">
+            <span class="text-gray-300">{{ marker.rsId }} <span class="text-gray-500">({{ marker.gene }})</span></span>
+          </label>
+        }
+      </div>
+       @if (markersFormArray.invalid && markersFormArray.touched) {
+          <p class="mt-1 text-xs text-red-400">Please select at least one genetic marker.</p>
+       }
     </div>
 
     <div>
