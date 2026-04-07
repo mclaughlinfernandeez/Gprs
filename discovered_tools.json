@@ -1,12 +1,31 @@
 {
   "tools": [
-    "HumanNet",
+    "MPC",
+    "GenDPR",
+    "ARM",
+    "Hyperledger Fabric",
+    "EIGENSTRAT",
+    "Secure MPC",
+    "FastPCA",
+    "TEE",
+    "TrustZone",
+    "ARM TrustZone",
+    "Chameleon Hash",
     "PageRank",
+    "GBA",
+    "HumanNet",
+    "Gene Prioritizer",
     "GPrior",
-    "Gene Prioritizer"
+    "survminer",
+    "survival",
+    "lme4"
   ],
   "articles_processed": [
-    "Lee_et_al_2011",
-    "PMC8484264"
-  ]
+    "Ostrak_2021",
+    "Wang_2024",
+    "Lee_2011",
+    "Kolosov_2021",
+    "SSA_2024"
+  ],
+  "categories": {}
 }
