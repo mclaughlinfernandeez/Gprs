@@ -24,7 +24,10 @@ class GenoPhenoPipeline:
             # PQC & GPRS (New Focus)
             "EIGENSTRAT", "FastPCA", "EMMAX", "Genomic Control", "Secure MPC", "TEE", "Trusted Execution Environment",
             "Blockchain", "Federated Learning", "Differential Privacy", "Hyperledger Fabric", "ARM TrustZone",
-            "SQLCipher", "Chameleon Hash", "GenDPR", "I-GWAS", "Homomorphic Encryption", "Post-Quantum Cryptography"
+            "SQLCipher", "Chameleon Hash", "GenDPR", "I-GWAS", "Homomorphic Encryption", "Post-Quantum Cryptography",
+            "FHE", "DP-SGD", "SNPgen", "HAPNEST", "GANs", "PRScs", "PRS-CSx", "LDpred", "SBLUP", "P+T",
+            "BOLT-LMM", "lassosum", "MegaPRS", "PrivatePRS", "SF-GWAS", "Secure-GWAS", "BEDCrypt", "PP-GWAS",
+            "tenSEAL", "syft", "opacus", "lifelines", "pycryptodome"
         ]
 
     def load_tools(self) -> Dict[str, Any]:

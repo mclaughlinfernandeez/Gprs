@@ -56,7 +56,13 @@ if __name__ == "__main__":
         ("HumanNet", "Interaction Network", "Geno-Pheno"),
         # Biostatistics
         ("eGFR", "CKD slope", "Biostatistics"),
-        ("Survival Analysis", "Time-to-event", "Biostatistics")
+        ("Survival Analysis", "Time-to-event", "Biostatistics"),
+        # PRS Methods
+        ("PRS-CSx", "Cross-population", "PRS"),
+        ("LDpred", "Polygenic Risk", "PRS"),
+        # Synthetic Data
+        ("SNPgen", "Synthetic Genotype", "Synthetic"),
+        ("HAPNEST", "Phenotype Simulation", "Synthetic")
     ]
     
     print("Starting Rebuilt Automated Journal Mining Pipeline...")
